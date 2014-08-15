@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.axtavt</groupId>
     <artifactId>rpm-test</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     
     <properties>
         <project.timestamp>${maven.build.timestamp}</project.timestamp>
@@ -113,6 +113,12 @@
                         <fileEncoding>utf-8</fileEncoding>
                     </preremoveScriptlet>          
                 </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5</version>
             </plugin>
         </plugins>
     </build>
