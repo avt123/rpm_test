@@ -130,6 +130,6 @@
     </distributionManagement>
     
     <scm>
-        <developerConnection>scm:git:https://github.com/avt123/rpm_test.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com:avt123/rpm_test.git</developerConnection>
     </scm>
 </project>
