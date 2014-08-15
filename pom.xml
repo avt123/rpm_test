@@ -6,6 +6,7 @@
     
     <properties>
         <project.timestamp>${maven.build.timestamp}</project.timestamp>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
     </properties>
     
     <!-- Inherit defaults from Spring Boot -->
@@ -36,10 +37,82 @@
 
     <!-- Package as an executable jar -->
     <build>
+        <finalName>rpmtest</finalName>
+    
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <version>2.1-alpha-4</version>
+                <executions>
+                    <execution>
+                        <id>generate-rpm</id>
+                        <goals>
+                            <goal>rpm</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <name>rpmtest</name>
+                    <group>Applications/Communications</group>
+                    <targetOS>linux</targetOS>
+                             
+                    <defaultDirmode>755</defaultDirmode>
+                    <defaultFilemode>644</defaultFilemode>
+                    <defaultUsername>rpmtest</defaultUsername>
+                    <defaultGroupname>rpmtest</defaultGroupname>
+                    
+                    <requires>
+                        <require>java-1.7.0-openjdk</require>
+                    </requires>
+                
+                    <mappings>
+                        <!-- Executable jar -->
+                        <mapping>
+                            <directory>/opt/rpmtest</directory>
+                            <artifact>
+                                <classifiers><classifier></classifier></classifiers>
+                            </artifact>
+                        </mapping>
+                        
+                        <!-- init.d script -->
+                        <mapping>
+                            <directory>/etc/init.d</directory>
+                            <directoryIncluded>false</directoryIncluded>
+                            <configuration>true</configuration>
+                            <filemode>744</filemode>
+                            <sources>
+                                <source><location>src/main/rpm/etc/init.d/rpmtest</location></source>
+                            </sources>
+                        </mapping>
+                                                
+                        <!-- Log folder -->
+                        <mapping>
+                            <directory>/var/log/rpmtest</directory>
+                        </mapping>
+                    </mappings>          
+                    
+                    <!-- Scripts -->
+                    <preinstallScriptlet>
+                        <scriptFile>src/main/rpm/preinstall.sh</scriptFile>
+                        <fileEncoding>utf-8</fileEncoding>
+                    </preinstallScriptlet>
+                    
+                    <postinstallScriptlet>
+                        <scriptFile>src/main/rpm/postinstall.sh</scriptFile>
+                        <fileEncoding>utf-8</fileEncoding>
+                    </postinstallScriptlet>
+                    
+                    <preremoveScriptlet>
+                        <scriptFile>src/main/rpm/preremove.sh</scriptFile>
+                        <fileEncoding>utf-8</fileEncoding>
+                    </preremoveScriptlet>          
+                </configuration>
             </plugin>
         </plugins>
     </build>
