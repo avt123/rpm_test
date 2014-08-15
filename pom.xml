@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.axtavt</groupId>
     <artifactId>rpm-test</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.3</version>
     
     <properties>
         <project.timestamp>${maven.build.timestamp}</project.timestamp>
@@ -76,7 +76,7 @@
                         <mapping>
                             <directory>/opt/rpmtest</directory>
                             <artifact>
-                                <classifiers><classifier></classifier></classifiers>
+                                <classifiers><classifier /></classifiers>
                             </artifact>
                         </mapping>
                         
@@ -137,5 +137,6 @@
     
     <scm>
         <developerConnection>scm:git:https://github.com/avt123/rpm_test.git</developerConnection>
-    </scm>
+      <tag>rpm-test-0.0.3</tag>
+  </scm>
 </project>
